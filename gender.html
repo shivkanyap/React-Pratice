@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+        
+        
+            const rootHandle=document.getElementById('root')
+99
+            class Gender extends React.Component
+            {
+                constructor()
+                {
+                    super()
+                    
+                        this.state={
+                            name:'',
+                            username:''
+                        }
+                    
+                }
+                genderhandle=(e)=>{
+                    const name=e.target.value
+                    this.setState(()=>(
+                        {name}
+                    ))
+                }
+                submithandle=(e)=>{
+                    e.preventDefault()
+                    const data={
+                        name:this.state.name
+                    }
+                   const key='pRPLCejozFwCHFbVCR'
+
+
+
+
+                    const xhr=new XMLHttpRequest()
+                    xhr.open('GET',`https://gender-api.com/get?name=${this.state.name}&key=${key}`)
+                    xhr.send()
+                    xhr.onload=()=>
+                    {
+                        const data=JSON.parse(xhr.responseText)
+                        console.log(data)
+                        this.setState(()=>({username:data.gender}))
+                    }
+
+                    //  fetch(`https://gender-api.com/get?name=${name}&key=${key}`)
+                    //  .then((response)=>{
+                    //      result=response.json()
+                    //         return result
+                    //  })
+                    // .then((username)=>{
+                    //     this.setState(()=>({
+                    //          username:result.gender,
+                            
+                    //      }))
+                    //  })
+                }
+                
+
+                render()
+                {
+                    return(
+                        <div>
+                        <form onSubmit={this.submithandle}>
+                        <label>
+                        <input type="text"  value={this.state.name} onChange={this.genderhandle}/>
+                        </label>
+
+                        <label>
+                        <input type="submit"/>
+                        </label>
+                        </form>
+                        <p>he/she is a {this.state.username}</p>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render(<Gender/>,rootHandle)
+            
+            
+            
+        </script>
+    </body>
+</html>
